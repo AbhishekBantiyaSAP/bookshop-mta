@@ -41,7 +41,6 @@ steps:
       - containerImageName: i528716/books-mta/bookshop-mta-hana-deployer
         path: gen/db
       - containerImageName: i528716/books-mta/bookshop-mta-html5-deployer
-        path: "."
         buildpacks:
         - 'deploy-releases-hyperspace-docker.common.repositories.sapcloud.cn/buildpacks/application-content-deployer-buildpack:1.1.0'
   kubernetesDeploy:
