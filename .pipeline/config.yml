@@ -27,7 +27,7 @@ steps:
       securityDescriptor: '**/xs-security.json'
   pipelineStashFilesAfterBuild:
     stashIncludes:
-      buildDescriptor: '**/gen/**, **/xs-security.json, **'
+      buildDescriptor: '**/gen/**, **/xs-security.json, **/mta_archives/**'
   cnbBuild:
     dockerImage: 'proxy-unified-runtime-dmz.int.repositories.cloud.sap/builder/jammy:latest'
     dockerConfigJsonCredentialsId: dockerConfigJsonCredentialsId
@@ -46,7 +46,7 @@ steps:
         - 'deploy-releases-hyperspace-docker.common.repositories.sapcloud.cn/buildpacks/application-content-deployer-buildpack:1.1.0'
   kubernetesDeploy:
     chartPath: './gen/chart'
-    deploymentName: 'cidcd-incidents'
+    deploymentName: 'cidcd-bookshop'
     namespace: 'i528716-pipeline'
     deployTool: 'helm3'
     additionalParameters:
