@@ -90,5 +90,5 @@ backendDestinations:
   srv-api:
     service: srv
 content-agent-service:
-    serviceOfferingName: content-agent
-    servicePlanName: application
+  serviceOfferingName: content-agent
+  servicePlanName: application

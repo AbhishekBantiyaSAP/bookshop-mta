@@ -1,0 +1,57 @@
+general:
+  buildTool: npm
+  productiveBranch: main
+
+stages:
+  Build:
+    cnbBuild: true
+    npmExecuteLint: false
+  Acceptance:
+    kubeConfigFileCredentialsId: kubeConfigFileCredentialsId
+    deployTool: 'helm3'
+    deploymentName: 'bookshop-mta'
+    namespace: 'i528716-pipeline'
+    kubernetesDeploy: true
+
+steps:
+  npmExecuteScripts:
+    runScripts:
+      - "production-build"
+      - "ui-build"
+  buildExecute:
+    npmRunScripts: [ 'production-build', 'ui-build' ]
+    npmInstall: false
+    cnbBuild: true
+  pipelineStashFilesBeforeBuild:
+    stashIncludes:
+      securityDescriptor: '**/xs-security.json'
+  pipelineStashFilesAfterBuild:
+    stashIncludes:
+      buildDescriptor: '**/gen/**, **/xs-security.json, **'
+  cnbBuild:
+    dockerImage: 'proxy-unified-runtime-dmz.int.repositories.cloud.sap/builder/jammy:latest'
+    dockerConfigJsonCredentialsId: dockerConfigJsonCredentialsId
+    containerImageTag: latest
+    containerRegistryUrl: 'content-agent.common.repositories.cloud.sap'
+    multipleImages:
+      - containerImageName: i528716/incidents/bookshop-mta-srv
+        path: gen/srv
+        buildpacks:
+          - 'docker.io/paketobuildpacks/nodejs'
+      - containerImageName: i528716/books-mta/bookshop-mta-hana-deployer
+        path: gen/db
+      - containerImageName: i528716/books-mta/bookshop-mta-html5-deployer
+        path: .
+        buildpacks:
+        - 'deploy-releases-hyperspace-docker.common.repositories.sapcloud.cn/buildpacks/application-content-deployer-buildpack:1.1.0'
+  kubernetesDeploy:
+    chartPath: './gen/chart'
+    deploymentName: 'cidcd-incidents'
+    namespace: 'i528716-pipeline'
+    deployTool: 'helm3'
+    additionalParameters:
+      - "--set-file"
+      - "xsuaa.jsonParameters=./xs-security.json"
+
+  artifactPrepareVersion:
+    gitSshKeyCredentialsId: 'gitSshKeyCredentialsId'
