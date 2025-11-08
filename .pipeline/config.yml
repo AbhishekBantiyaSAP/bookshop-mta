@@ -13,8 +13,7 @@ stages:
     namespace: 'i528716-pipeline'
     kubernetesDeploy: true
     npmExecuteScripts: false
-    unstashBefore:
-      - customBuildArtifacts
+    unstash: ['securityDescriptor']
 
 steps:
   npmExecuteScripts:
@@ -26,12 +25,9 @@ steps:
     npmInstall: false
     cnbBuild: true
     helmExecute: true
-#  pipelineStashFilesBeforeBuild:
-#    stashIncludes:
-#      securityDescriptor: '**/xs-security.json'
   pipelineStashFilesAfterBuild:
     stashIncludes:
-      customBuildArtifacts: '**/gen/chart/**, **/xs-security.json'
+      securityDescriptor: '**/xs-security.json, **/gen/chart/**'
   cnbBuild:
     dockerImage: 'proxy-unified-runtime-dmz.int.repositories.cloud.sap/builder/jammy:latest'
     dockerConfigJsonCredentialsId: dockerConfigJsonCredentialsId
