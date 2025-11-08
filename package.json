@@ -1,6 +1,6 @@
 {
   "name": "bookshop-mta",
-  "version": "1.0.0",
+  "version": "1.0.0-20251108143810+e08e5c0790dfdc6a536517e24f9b1b21d460c296",
   "description": "A simple CAP project.",
   "dependencies": {
     "@cap-js/hana": "^2",
