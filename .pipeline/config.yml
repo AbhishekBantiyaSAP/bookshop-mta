@@ -7,12 +7,12 @@ stages:
     buildExecute: true
     npmExecuteLint: false
   Acceptance:
+    npmExecuteScripts: true
     kubeConfigFileCredentialsId: kubeConfigFileCredentialsId
     deployTool: 'helm3'
     deploymentName: 'bookshop-mta'
     namespace: 'i528716-pipeline'
     kubernetesDeploy: true
-    npmExecuteScripts: true
 
 steps:
   npmExecuteScripts:
