@@ -44,7 +44,7 @@ steps:
 #        path: gen/db
       - containerImageName: i528716/books-mta/bookshop-mta-html5-deployer
         buildpacks:
-        - 'deploy-releases-hyperspace-docker.common.repositories.sapcloud.cn/buildpacks/application-content-deployer-buildpack:1.1.0'
+          - 'deploy-releases-hyperspace-docker.common.repositories.sapcloud.cn/buildpacks/application-content-deployer-buildpack:1.1.0'
   helmExecute:
     chartPath: ./gen/chart
     dependency: update
