@@ -27,7 +27,7 @@ steps:
     helmExecute: true
   pipelineStashFilesAfterBuild:
     stashIncludes:
-      securityDescriptor: '**/xs-security.json, **/gen/chart/**'
+      buildResult: '**/target/*.war, **/target/*.jar, **/*.mtar, **/*.jar.original, **/dist/**, **/xs-security.json, **/gen/chart/**'
   cnbBuild:
     dockerImage: 'proxy-unified-runtime-dmz.int.repositories.cloud.sap/builder/jammy:latest'
     dockerConfigJsonCredentialsId: dockerConfigJsonCredentialsId
