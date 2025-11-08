@@ -7,7 +7,7 @@ stages:
     buildExecute: true
     npmExecuteLint: false
   Acceptance:
-    npmExecuteScripts: true
+    npmRunScripts: ['production-build']
     kubeConfigFileCredentialsId: kubeConfigFileCredentialsId
     deployTool: 'helm3'
     deploymentName: 'bookshop-mta'
