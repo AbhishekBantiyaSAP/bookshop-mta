@@ -22,6 +22,7 @@ steps:
     npmRunScripts: [ 'production-build', 'ui-build' ]
     npmInstall: false
     cnbBuild: true
+    helmExecute: true
   pipelineStashFilesBeforeBuild:
     stashIncludes:
       securityDescriptor: '**/xs-security.json'
@@ -43,6 +44,9 @@ steps:
       - containerImageName: i528716/books-mta/bookshop-mta-html5-deployer
         buildpacks:
         - 'deploy-releases-hyperspace-docker.common.repositories.sapcloud.cn/buildpacks/application-content-deployer-buildpack:1.1.0'
+  helmExecute:
+    chartPath: ./gen/chart
+    dependency: update
   kubernetesDeploy:
     chartPath: './gen/chart'
     deploymentName: 'cidcd-bookshop'
