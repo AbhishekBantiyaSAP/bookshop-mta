@@ -47,6 +47,8 @@ steps:
   helmExecute:
     chartPath: ./gen/chart
     dependency: update
+    templateStartDelimiter: "[["
+    templateEndDelimiter: "]]"
   kubernetesDeploy:
     chartPath: './gen/chart'
     deploymentName: 'cidcd-bookshop'
