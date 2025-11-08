@@ -7,12 +7,11 @@ stages:
     buildExecute: true
     npmExecuteLint: false
   Acceptance:
-    npmRunScripts: ['production-build']
     kubeConfigFileCredentialsId: kubeConfigFileCredentialsId
     deployTool: 'helm3'
     deploymentName: 'bookshop-mta'
     namespace: 'i528716-pipeline'
-    kubernetesDeploy: true
+    dockerExecute: true
 
 steps:
   npmExecuteScripts:
@@ -50,14 +49,16 @@ steps:
     dependency: update
     templateStartDelimiter: "[["
     templateEndDelimiter: "]]"
-  kubernetesDeploy:
-    chartPath: './gen/chart'
-    deploymentName: 'cidcd-bookshop'
-    namespace: 'i528716-pipeline'
-    deployTool: 'helm3'
-    additionalParameters:
-      - "--set-file"
-      - "xsuaa.jsonParameters=./xs-security.json"
+  dockerExecute:
+    npmRunScripts: ['cds build --production']
+    kubernetesDeploy:
+      chartPath: './gen/chart'
+      deploymentName: 'cidcd-bookshop'
+      namespace: 'i528716-pipeline'
+      deployTool: 'helm3'
+      additionalParameters:
+        - "--set-file"
+        - "xsuaa.jsonParameters=./xs-security.json"
 
   artifactPrepareVersion:
     gitSshKeyCredentialsId: 'gitSshKeyCredentialsId'
