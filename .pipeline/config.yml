@@ -4,7 +4,7 @@ general:
 
 stages:
   Build:
-    cnbBuild: true
+    buildExecute: true
     npmExecuteLint: false
   Acceptance:
     kubeConfigFileCredentialsId: kubeConfigFileCredentialsId
